@@ -1,6 +1,11 @@
 <h1>This is a list of all places in the database</h1>
+<ul>
 {{#each places}}
-    <h4>Place name is: {{name}}</h4>
-    <h4>The type is: {{type}}</h4>
-    </br>
+<li>
+    <a href="/place/{{ _id }}">
+        <h4>{{ name }}</h4>
+    </a>
+  </li>
 {{/each}}
+</ul>
+        {{!-- <span>Latitude: {{ location.coordinates.[1] }} Longitude: {{ location.coordinates.[0] }}</span> --}}

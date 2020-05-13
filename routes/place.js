@@ -7,7 +7,7 @@ placeRouter.get('/list', (req, res, next) =>{
     Place.find()
     .then(places => {
         res.render('place/list', {places});
-    })
+    });
 });
 
 
@@ -49,5 +49,45 @@ placeRouter.post('/create', (req, res, next) =>{
         });
     });
     
+        
+     // route to delete one place
+     placeRouter.get('/:placeId/delete', (req, res, next) =>{
+        const placeId = req.params.placeId;  
+        Place.findById(placeId)
+        .then(place => {
+            res.render('place/delete', {place});
+        });
+    });
+
+    placeRouter.post('/:placeId/delete', (req, res, next) =>{
+        const placeId = req.params.placeId;  
+        Place.deleteOne({_id: placeId})
+        .then((place) => res.render('place/delete'))
+        .catch((error)=> next(error))
+    })
+
+    //route to edit one place
+    placeRouter.get('/:placeId/edit', (req, res, next) =>{
+        const placeId = req.params.placeId;
+        const name = req.body.name;
+        const type = req.body.type;     
+        
+        
+        Place.findById(placeId)
+        .then(place => {
+            const name = req.params.name;
+            const type = req.params.type;   
+            res.render('place/edit', {place});
+        });
+    });
+    
+    placeRouter.post('/:placeId/edit', (req, res, next) =>{
+        const placeId = req.params.placeId;    
+        Place.findById(placeId)
+        .then(place => {
+            res.render('place/edit', {place});
+        });
+    });
+
     
     module.exports = placeRouter;
